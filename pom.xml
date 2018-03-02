@@ -6,7 +6,7 @@
     <groupId>com.sai</groupId>
     <artifactId>web</artifactId>
     <version>0.0.1</version>
-    <packaging>jar</packaging>
+    <packaging>${web.packaging}</packaging>
 
     <name>saiWeb</name>
     <description>saiarea project for Spring Boot</description>
@@ -133,10 +133,11 @@
     <profiles>
 
         <profile>
-            <id>dev</id>
+            <id>pomPackaging</id>
             <properties>
                 <logback.loglevel>DEBUG</logback.loglevel>
                 <spring-package-profile>dev</spring-package-profile>
+                <web.packaging>pom</web.packaging>
             </properties>
 
             <build>
@@ -155,10 +156,11 @@
         </profile>
 
         <profile>
-            <id>prod</id>
+            <id>jarPackaging</id>
             <properties>
                 <logback.loglevel>INFO</logback.loglevel>
                 <spring-package-profile>prod</spring-package-profile>
+                <web.packaging>jar</web.packaging>
             </properties>
 
             <build>
