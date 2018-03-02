@@ -6,7 +6,7 @@
     <groupId>com.sai</groupId>
     <artifactId>web</artifactId>
     <version>0.0.1</version>
-    <packaging>jar</packaging>
+    <packaging>pom</packaging>
 
     <name>saiWeb</name>
     <description>saiarea project for Spring Boot</description>
