@@ -9,21 +9,6 @@ import org.springframework.context.annotation.Configuration;
 
 import javax.sql.DataSource;
 
-@Configuration
 public class AppDataSourceConfig {
-    @Bean(name = "appDataSource")
-    @ConfigurationProperties(prefix="spring.saiAreaDataSource.druid")
-    public DataSource dataSource(){
-        return DruidDataSourceBuilder.create().build();
-    }
 
-    @Bean(name = "appSqlSessionFactory")
-    public SqlSessionFactory sqlSessionFactory() throws Exception {
-        SqlSessionFactoryBean sessionFactory = new SqlSessionFactoryBean();
-        sessionFactory.setDataSource(dataSource());
-
-        // 添加插件
-//        sessionFactory.setPlugins(new Interceptor[] { pageHelper,new CatDruidInterceptor()  });
-        return sessionFactory.getObject();
-    }
 }

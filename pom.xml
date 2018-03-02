@@ -6,16 +6,10 @@
     <groupId>com.sai</groupId>
     <artifactId>web</artifactId>
     <version>0.0.1</version>
-    <packaging>pom</packaging>
+    <packaging>jar</packaging>
 
     <name>saiWeb</name>
     <description>saiarea project for Spring Boot</description>
-
-    <parent>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-parent</artifactId>
-        <version>1.5.9.RELEASE</version>
-    </parent>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -66,12 +60,6 @@
             <groupId>org.mybatis.spring.boot</groupId>
             <artifactId>mybatis-spring-boot-starter</artifactId>
             <version>${mybatis.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-            <version>${mysql.version}</version>
-            <scope>runtime</scope>
         </dependency>
         <dependency>
             <groupId>com.alibaba</groupId>
@@ -142,16 +130,6 @@
 
             <build>
                 <finalName>${project.name}</finalName>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-war-plugin</artifactId>
-                        <version>3.2.0</version>
-                        <configuration>
-                            <outputDirectory>target/</outputDirectory>
-                        </configuration>
-                    </plugin>
-                </plugins>
             </build>
         </profile>
 
@@ -165,16 +143,6 @@
 
             <build>
                 <finalName>${project.name}</finalName>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-war-plugin</artifactId>
-                        <version>3.2.0</version>
-                        <configuration>
-                            <outputDirectory>target/</outputDirectory>
-                        </configuration>
-                    </plugin>
-                </plugins>
             </build>
         </profile>
 
