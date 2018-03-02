@@ -3,12 +3,8 @@ package com.sai.web.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import com.sai.core.constents.StatusContent;
-import com.sai.web.dto.ResponseCode;
 import com.sai.core.dto.ResultCode;
-import org.apache.shiro.authc.UnknownAccountException;
-import org.apache.shiro.authz.UnauthorizedException;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ResponseBody;
+import com.sai.web.dto.ResponseCode;
 
 /**
  * Created by ZhouXiang sai on 2017/6/29.
@@ -54,19 +50,6 @@ public class BaseController<T> {
 
     public String getResult(ResultCode<T> resultCode) {
         return getResult(resultCode.getCode(), resultCode.getMsg(), resultCode.getData());
-    }
-
-    @ExceptionHandler({UnauthorizedException.class})
-    @ResponseBody
-    public String unauthorizedExceptionHandler(RuntimeException runtimeException) {
-        runtimeException.printStackTrace();
-        return getFailResult("权限不足ExceptionHandler");
-    }
-
-    @ExceptionHandler({UnknownAccountException.class})
-    @ResponseBody
-    public String unknownAccountExceptionHandler() {
-        return getFailResult("用户不存在");
     }
 
 }
