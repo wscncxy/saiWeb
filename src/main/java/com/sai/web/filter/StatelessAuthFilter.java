@@ -1,6 +1,6 @@
 package com.sai.web.filter;
 
-import com.sai.core.constants.AuthContants;
+import com.sai.core.constants.AuthConstants;
 import com.sai.web.pojo.StatelessToken;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.subject.Subject;
@@ -42,7 +42,7 @@ public class StatelessAuthFilter extends AccessControlFilter {
             HttpServletRequest httpRequest = (HttpServletRequest) request;
             String token = httpRequest.getHeader("token");
             if (StringUtils.isBlank(token)) {
-                token = httpRequest.getHeader(AuthContants.AUTH_FRONT_TOKEN_KEY);
+                token = httpRequest.getHeader(AuthConstants.AUTH_FRONT_TOKEN_KEY);
             }
             StatelessToken statelessToken = new StatelessToken(token, token);
             ThreadContext.unbindSubject();
