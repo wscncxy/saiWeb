@@ -2,7 +2,7 @@ package com.sai.web.controller;
 
 
 import com.alibaba.fastjson.JSONObject;
-import com.sai.core.constents.StatusContent;
+import com.sai.core.constants.StatusConstant;
 import com.sai.core.dto.ResultCode;
 import com.sai.web.dto.ResponseCode;
 
@@ -13,27 +13,27 @@ import com.sai.web.dto.ResponseCode;
 public class BaseController<T> {
 
     public String getSuccessResult() {
-        return getResult(StatusContent.RESULT_SUCCESS_CODE, StatusContent.RESULT_SUCCESS_MSG, null);
+        return getResult(StatusConstant.RESULT_SUCCESS_CODE, StatusConstant.RESULT_SUCCESS_MSG, null);
     }
 
     public String getSuccessResult(T data) {
-        return getResult(StatusContent.RESULT_SUCCESS_CODE, StatusContent.RESULT_SUCCESS_MSG, data);
+        return getResult(StatusConstant.RESULT_SUCCESS_CODE, StatusConstant.RESULT_SUCCESS_MSG, data);
     }
 
     public String getSuccessResult(String msg) {
-        return getResult(StatusContent.RESULT_SUCCESS_CODE, msg, null);
+        return getResult(StatusConstant.RESULT_SUCCESS_CODE, msg, null);
     }
 
     public String getSuccessResult(String msg, T data) {
-        return getResult(StatusContent.RESULT_SUCCESS_CODE, msg, data);
+        return getResult(StatusConstant.RESULT_SUCCESS_CODE, msg, data);
     }
 
     public String getFailResult() {
-        return getResult(StatusContent.RESULT_FAIL_CODE, StatusContent.RESULT_FAIL_MSG, null);
+        return getResult(StatusConstant.RESULT_FAIL_CODE, StatusConstant.RESULT_FAIL_MSG, null);
     }
 
     public String getFailResult(String msg) {
-        return getResult(StatusContent.RESULT_FAIL_CODE, msg, null);
+        return getResult(StatusConstant.RESULT_FAIL_CODE, msg, null);
     }
 
     public String getFailResult(String code, String msg) {

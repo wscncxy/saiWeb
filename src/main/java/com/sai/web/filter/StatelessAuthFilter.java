@@ -1,6 +1,6 @@
 package com.sai.web.filter;
 
-import com.sai.core.constents.AuthContants;
+import com.sai.core.constants.AuthContants;
 import com.sai.web.pojo.StatelessToken;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.subject.Subject;

@@ -1,7 +1,7 @@
 package com.sai.web.dto;
 
 
-import com.sai.core.constents.StatusContent;
+import com.sai.core.constants.StatusConstant;
 import com.sai.core.utils.StringUtil;
 
 /**
@@ -47,27 +47,27 @@ public class ResponseCode<T> {
     }
 
     public boolean isSuccess() {
-        return StringUtil.equals(StatusContent.RESULT_SUCCESS_CODE, code);
+        return StringUtil.equals(StatusConstant.RESULT_SUCCESS_CODE, code);
     }
 
     public final static <T> ResponseCode<T> fail(String msg) {
-        return new ResponseCode<T>(StatusContent.RESULT_FAIL_CODE, msg, null);
+        return new ResponseCode<T>(StatusConstant.RESULT_FAIL_CODE, msg, null);
     }
 
     public final static <T> ResponseCode<T> fail() {
-        return new ResponseCode<T>(StatusContent.RESULT_FAIL_CODE, StatusContent.RESULT_FAIL_MSG, null);
+        return new ResponseCode<T>(StatusConstant.RESULT_FAIL_CODE, StatusConstant.RESULT_FAIL_MSG, null);
     }
 
     public final static <T> ResponseCode<T> success(String msg, T data) {
-        return new ResponseCode<T>(StatusContent.RESULT_SUCCESS_CODE, msg, data);
+        return new ResponseCode<T>(StatusConstant.RESULT_SUCCESS_CODE, msg, data);
     }
 
     public final static <T> ResponseCode<T> success(T data) {
-        return new ResponseCode<T>(StatusContent.RESULT_SUCCESS_CODE, StatusContent.RESULT_SUCCESS_MSG, data);
+        return new ResponseCode<T>(StatusConstant.RESULT_SUCCESS_CODE, StatusConstant.RESULT_SUCCESS_MSG, data);
     }
 
     public final static <T> ResponseCode<T> success() {
-        return new ResponseCode<T>(StatusContent.RESULT_SUCCESS_CODE, StatusContent.RESULT_SUCCESS_MSG, null);
+        return new ResponseCode<T>(StatusConstant.RESULT_SUCCESS_CODE, StatusConstant.RESULT_SUCCESS_MSG, null);
     }
 
     public final static <T> ResponseCode<T> result(String code, String msg) {
