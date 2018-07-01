@@ -33,33 +33,38 @@ public class ConsulPropertySourceLoader implements PropertySourceLoader {
     private Map<String, Object> process(Properties properties) {
         ConsulUtil consulUtil = ConsulUtil.getInstance();
         consulUtil.init(properties);
-        final String keyPre = properties.getProperty("app.name") + "/config/" + properties.getProperty("spring.active.profiles");
+        String profile = properties.getProperty("spring.active.profiles");
+        String appNames = properties.getProperty("app.name");
+        String[] appNameArray = appNames.split(",");
+
         final Map<String, Object> result = new LinkedHashMap<String, Object>();
-        List<String> subKeyList = consulUtil.getSubKeys(keyPre);
-        if (subKeyList != null || subKeyList.size() > 0) {
-            for (String subKey : subKeyList) {
-                String value = consulUtil.getValue(subKey);
-                if (StringUtils.isBlank(value)) {
-                    continue;
-                }
-                String theKey = subKey.replaceFirst(keyPre, "").replaceAll("/", Constants.SYMBOL_POINT).replaceFirst(Constants.SYMBOL_POINT, "");
-                JSONObject jsonObject = JSONUtil.toJSONObject(value);
-                if (jsonObject == null) {
-                    result.put(theKey, value);
-                } else {
-                    Iterator<Map.Entry<String, Object>> iterator = jsonObject.entrySet().iterator();
-                    while (iterator.hasNext()) {
-                        Map.Entry<String, Object> entry = iterator.next();
-                        Object entryValue = entry.getValue();
-                        if (entryValue != null) {
-                            String entryKey = entry.getKey();
-                            result.put(theKey + Constants.SYMBOL_POINT + entryKey, entryValue);
+        for (String appName : appNameArray) {
+            String keyPre = appName + "/config/" + profile;
+            List<String> subKeyList = consulUtil.getSubKeys(keyPre);
+            if (subKeyList != null || subKeyList.size() > 0) {
+                for (String subKey : subKeyList) {
+                    String value = consulUtil.getValue(subKey);
+                    if (StringUtils.isBlank(value)) {
+                        continue;
+                    }
+                    String theKey = subKey.replaceFirst(keyPre, "").replaceAll("/", Constants.SYMBOL_POINT).replaceFirst(Constants.SYMBOL_POINT, "");
+                    JSONObject jsonObject = JSONUtil.toJSONObject(value);
+                    if (jsonObject == null) {
+                        result.put(theKey, value);
+                    } else {
+                        Iterator<Map.Entry<String, Object>> iterator = jsonObject.entrySet().iterator();
+                        while (iterator.hasNext()) {
+                            Map.Entry<String, Object> entry = iterator.next();
+                            Object entryValue = entry.getValue();
+                            if (entryValue != null) {
+                                String entryKey = entry.getKey();
+                                result.put(theKey + Constants.SYMBOL_POINT + entryKey, entryValue);
+                            }
                         }
                     }
                 }
             }
         }
-        System.out.println(JSONObject.toJSONString(result));
         return result;
     }
 }
