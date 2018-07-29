@@ -16,7 +16,7 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
         <sai.version>0.0.1</sai.version>
-        <spring.version>4.3.13.RELEASE</spring.version>
+        <spring.version>4.3.18.RELEASE</spring.version>
         <shiro.version>1.4.0</shiro.version>
         <druid.version>1.1.7</druid.version>
         <logback.version>1.2.3</logback.version>
@@ -78,7 +78,11 @@
             <artifactId>spring-boot-starter-data-redis</artifactId>
             <version>1.5.14.RELEASE</version>
         </dependency>
-
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-web</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
     </dependencies>
 
     <build>

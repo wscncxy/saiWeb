@@ -23,8 +23,14 @@ public class PageUtil<T> implements Serializable {
     public PageUtil() {
     }
 
-    public PageUtil(Integer pageNo, int pageSize) {
-        this.pageNo = (pageNo == null ? 1 : pageNo);
+    public PageUtil(Integer pageNo, Integer pageSize) {
+        if (pageNo == null || pageNo < 1) {
+            pageNo = 1;
+        }
+        if (pageSize == null || pageSize < 1 || pageSize > 100) {
+            pageSize = 20;
+        }
+        this.pageNo = pageNo;
         this.pageSize = pageSize;
     }
 

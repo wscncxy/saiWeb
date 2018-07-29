@@ -1,5 +1,7 @@
 package com.sai.web.controller;
 
+import com.sai.web.dto.ResponseCode;
+
 import java.io.IOException;
 
 /**
@@ -9,7 +11,7 @@ import java.io.IOException;
 public class IndexController extends BaseController {
 
 
-    public String add() throws IOException {
+    public ResponseCode add() throws IOException {
         return getSuccessResult();
     }
 

@@ -12,43 +12,43 @@ import com.sai.web.dto.ResponseCode;
 
 public class BaseController<T> {
 
-    public String getSuccessResult() {
+    public ResponseCode getSuccessResult() {
         return getResult(StatusConstant.RESULT_SUCCESS_CODE, StatusConstant.RESULT_SUCCESS_MSG, null);
     }
 
-    public String getSuccessResult(T data) {
+    public ResponseCode getSuccessResult(T data) {
         return getResult(StatusConstant.RESULT_SUCCESS_CODE, StatusConstant.RESULT_SUCCESS_MSG, data);
     }
 
-    public String getSuccessResult(String msg) {
+    public ResponseCode getSuccessResult(String msg) {
         return getResult(StatusConstant.RESULT_SUCCESS_CODE, msg, null);
     }
 
-    public String getSuccessResult(String msg, T data) {
+    public ResponseCode getSuccessResult(String msg, T data) {
         return getResult(StatusConstant.RESULT_SUCCESS_CODE, msg, data);
     }
 
-    public String getFailResult() {
+    public ResponseCode getFailResult() {
         return getResult(StatusConstant.RESULT_FAIL_CODE, StatusConstant.RESULT_FAIL_MSG, null);
     }
 
-    public String getFailResult(String msg) {
+    public ResponseCode getFailResult(String msg) {
         return getResult(StatusConstant.RESULT_FAIL_CODE, msg, null);
     }
 
-    public String getFailResult(String code, String msg) {
+    public ResponseCode getFailResult(String code, String msg) {
         return getResult(code, msg, null);
     }
 
-    public String getResult(String code, String msg, T data) {
+    public ResponseCode getResult(String code, String msg, T data) {
         ResponseCode responseCode = new ResponseCode();
         responseCode.setCode(code);
         responseCode.setMsg(msg);
         responseCode.setData(data);
-        return JSONObject.toJSONString(responseCode);
+        return responseCode;
     }
 
-    public String getResult(ResultCode<T> resultCode) {
+    public ResponseCode getResult(ResultCode<T> resultCode) {
         return getResult(resultCode.getCode(), resultCode.getMsg(), resultCode.getData());
     }
 

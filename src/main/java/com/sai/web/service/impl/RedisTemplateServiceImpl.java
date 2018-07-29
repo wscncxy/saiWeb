@@ -1,6 +1,7 @@
 package com.sai.web.service.impl;
 
 import com.sai.web.service.RedisTemplateService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.*;
 import org.springframework.stereotype.Service;
 
@@ -20,8 +21,8 @@ public class RedisTemplateServiceImpl implements RedisTemplateService {
     /**
      * 日志记录
      */
-
-    protected RedisTemplate<String, String> redisTemplate;
+    @Autowired
+    private RedisTemplate redisTemplate;
 
     public RedisTemplate<String, String> getRedisTemplate() {
         return redisTemplate;
@@ -71,6 +72,7 @@ public class RedisTemplateServiceImpl implements RedisTemplateService {
             }
             return b;
         } catch (Throwable t) {
+            t.printStackTrace();
 //            Logger.error("Set[" + key + "]失败, value[" + v + "]"+t.getMessage());
         }
         return false;
@@ -94,7 +96,7 @@ public class RedisTemplateServiceImpl implements RedisTemplateService {
             }
             return true;
         } catch (Throwable t) {
-//            CatUtils.error("set[" + key + "]失败, value[" + v + "]"+t.getMessage());
+            t.printStackTrace();
         }
         return false;
     }
@@ -114,7 +116,7 @@ public class RedisTemplateServiceImpl implements RedisTemplateService {
         try {
             return redisTemplate.hasKey(key);
         } catch (Throwable t) {
-//            CatUtils.error("判断key存在失败key[" + key + ", error[" + t + "]");
+            t.printStackTrace();
         }
         return false;
     }
@@ -130,8 +132,7 @@ public class RedisTemplateServiceImpl implements RedisTemplateService {
             ValueOperations<String, String> valueOps = redisTemplate.opsForValue();
             return valueOps.get(k);
         } catch (Throwable t) {
-//            CatUtils.error("获取值失败key[" + k + ", error[" + t
-//                    + "]");
+            t.printStackTrace();
         }
         return null;
     }
@@ -147,7 +148,7 @@ public class RedisTemplateServiceImpl implements RedisTemplateService {
             redisTemplate.delete(key);
             return true;
         } catch (Throwable t) {
-//            CatUtils.error("删除值失败key[" + key + ", error[" + t + "]");
+            t.printStackTrace();
         }
         return false;
     }
@@ -169,7 +170,7 @@ public class RedisTemplateServiceImpl implements RedisTemplateService {
             }
             return l;
         } catch (Throwable t) {
-//            CatUtils.error("Set Add[" + k + "]失败, value[" + v + "]"+t.getMessage());
+            t.printStackTrace();
         }
         return 0L;
     }
@@ -202,7 +203,7 @@ public class RedisTemplateServiceImpl implements RedisTemplateService {
             }
             return l;
         } catch (Throwable t) {
-//            CatUtils.error("Set 批量ADD[" + k + "]失败, value[" + v + "]"+t.getMessage());
+            t.printStackTrace();
         }
         return 0L;
     }
@@ -229,8 +230,7 @@ public class RedisTemplateServiceImpl implements RedisTemplateService {
             SetOperations<String, String> setOps = redisTemplate.opsForSet();
             return setOps.members(k);
         } catch (Throwable t) {
-//            CatUtils.error("获取set失败key[" + k + ", error[" + t
-//                    + "]");
+            t.printStackTrace();
         }
         return null;
     }
@@ -247,8 +247,7 @@ public class RedisTemplateServiceImpl implements RedisTemplateService {
             SetOperations<String, String> setOps = redisTemplate.opsForSet();
             return setOps.difference(k1, k2);
         } catch (Throwable t) {
-//            CatUtils.error("合并失败key[" + k1 + "，" + k2 + ", error[" + t
-//                    + "]");
+            t.printStackTrace();
         }
         return null;
     }
@@ -270,7 +269,7 @@ public class RedisTemplateServiceImpl implements RedisTemplateService {
             }
             return l;
         } catch (Throwable t) {
-//            CatUtils.error("List Rpush[" + k + "]失败, value[" + v + "]"+t.getMessage());
+            t.printStackTrace();
         }
         return 0L;
     }
@@ -303,7 +302,7 @@ public class RedisTemplateServiceImpl implements RedisTemplateService {
             }
             return l;
         } catch (Throwable t) {
-//            CatUtils.error("List Rpush[" + k + "]失败, value[" + v + "]"+t.getMessage());
+            t.printStackTrace();
         }
         return 0L;
     }
@@ -336,7 +335,7 @@ public class RedisTemplateServiceImpl implements RedisTemplateService {
             }
             return l;
         } catch (Throwable t) {
-//            CatUtils.error("List R push all[" + k + "]失败, value[" + JSONObject.toJSONString(v) + "]"+t.getMessage());
+            t.printStackTrace();
         }
         return 0L;
     }
@@ -365,8 +364,7 @@ public class RedisTemplateServiceImpl implements RedisTemplateService {
             ListOperations<String, String> listOps = redisTemplate.opsForList();
             return listOps.range(k, start, end);
         } catch (Throwable t) {
-//            CatUtils.error("获取list subList失败key[" + k + ", error["
-//                    + t + "]");
+            t.printStackTrace();
         }
         return null;
     }
@@ -382,8 +380,7 @@ public class RedisTemplateServiceImpl implements RedisTemplateService {
             ListOperations<String, String> listOps = redisTemplate.opsForList();
             return listOps.size(k);
         } catch (Throwable t) {
-//            CatUtils.error("获取list长度失败key[" + k + "], error["
-//                    + t + "]");
+            t.printStackTrace();
         }
         return 0;
     }
@@ -399,8 +396,7 @@ public class RedisTemplateServiceImpl implements RedisTemplateService {
             ListOperations<String, String> listOps = redisTemplate.opsForList();
             return listOps.rightPop(k);
         } catch (Throwable t) {
-//            CatUtils.error("List Rpop失败key[" + k + ", error["
-//                    + t + "]");
+            t.printStackTrace();
         }
         return null;
     }
@@ -416,8 +412,7 @@ public class RedisTemplateServiceImpl implements RedisTemplateService {
             ListOperations<String, String> listOps = redisTemplate.opsForList();
             return listOps.leftPop(k);
         } catch (Throwable t) {
-//            CatUtils.error("List Lpop失败key[" + k + ", error["
-//                    + t + "]");
+            t.printStackTrace();
         }
         return null;
     }
@@ -437,7 +432,7 @@ public class RedisTemplateServiceImpl implements RedisTemplateService {
             }
             return true;
         } catch (Throwable t) {
-//            CatUtils.error("Hash PUT失败key[" + k + ", field[" + map + "]");
+            t.printStackTrace();
         }
         return false;
     }
@@ -457,7 +452,7 @@ public class RedisTemplateServiceImpl implements RedisTemplateService {
             }
             return true;
         } catch (Throwable t) {
-//            CatUtils.error("Hash PUT失败key[" + k + ", field[" + fieldKey + "]");
+            t.printStackTrace();
         }
         return false;
     }
@@ -473,8 +468,7 @@ public class RedisTemplateServiceImpl implements RedisTemplateService {
             HashOperations<String, String, String> hashOps = redisTemplate.opsForHash();
             return hashOps.get(k, fieldKey);
         } catch (Throwable t) {
-//            CatUtils.error("Hash get field失败key[" + k + ", error["
-//                    + t + "]");
+            t.printStackTrace();
         }
         return null;
     }
@@ -490,7 +484,7 @@ public class RedisTemplateServiceImpl implements RedisTemplateService {
             HashOperations<String, String, String> hashOps = redisTemplate.opsForHash();
             return hashOps.entries(k);
         } catch (Throwable t) {
-//            CatUtils.error("Hash get ALL失败key[" + k + ", error[" + t + "]");
+            t.printStackTrace();
         }
         return null;
     }
