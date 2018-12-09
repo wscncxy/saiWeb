@@ -33,22 +33,29 @@ public class ConsulPropertySourceLoader implements PropertySourceLoader {
     private Map<String, Object> process(Properties properties) {
         ConsulUtil consulUtil = ConsulUtil.getInstance();
         consulUtil.init(properties);
-        String profile = properties.getProperty("spring.active.profiles");
-        String appNames = properties.getProperty("app.name");
-        String[] appNameArray = appNames.split(",");
+        String curProfile = properties.getProperty("spring.profiles.active");
+        String applicationName = properties.getProperty("spring.application.name");
+        String[] profileArray = new String[]{"all", curProfile};
 
         final Map<String, Object> result = new LinkedHashMap<String, Object>();
-        for (String appName : appNameArray) {
-            String keyPre = appName + "/config/" + profile;
+        result.put("spring.application.name", applicationName);
+        result.put("spring.profiles.active", curProfile);
+        for (String profile : profileArray) {
+            String keyPre = "envConfig/" + applicationName + "/" + profile;
             List<String> subKeyList = consulUtil.getSubKeys(keyPre);
-            if (subKeyList != null || subKeyList.size() > 0) {
+            if (subKeyList != null && subKeyList.size() > 0) {
                 for (String subKey : subKeyList) {
                     String value = consulUtil.getValue(subKey);
                     if (StringUtils.isBlank(value)) {
                         continue;
                     }
                     String theKey = subKey.replaceFirst(keyPre, "").replaceAll("/", Constants.SYMBOL_POINT).replaceFirst(Constants.SYMBOL_POINT, "");
-                    JSONObject jsonObject = JSONUtil.toJSONObject(value);
+                    ;
+                    JSONObject jsonObject = null;
+                    try {
+                        jsonObject = JSONUtil.toJSONObject(value);
+                    } catch (Exception e) {
+                    }
                     if (jsonObject == null) {
                         result.put(theKey, value);
                     } else {
