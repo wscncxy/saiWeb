@@ -9,9 +9,8 @@ import org.apache.shiro.authc.AuthenticationToken;
 public class StatelessToken implements AuthenticationToken {
     private String principal;
     private String token;
-
-    private Integer version; 
     private String requestUrl;
+    private Integer version;
 
     public Integer getVersion() {
         return version;
