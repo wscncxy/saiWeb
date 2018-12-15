@@ -10,9 +10,28 @@ public class StatelessToken implements AuthenticationToken {
     private String principal;
     private String token;
 
-    public StatelessToken(String principal,String token){
-        this.principal=principal;
-        this.token=token;
+    private Integer version; 
+    private String requestUrl;
+
+    public Integer getVersion() {
+        return version;
+    }
+
+    public void setVersion(Integer version) {
+        this.version = version;
+    }
+
+    public String getRequestUrl() {
+        return requestUrl;
+    }
+
+    public void setRequestUrl(String requestUrl) {
+        this.requestUrl = requestUrl;
+    }
+
+    public StatelessToken(String principal, String token) {
+        this.principal = principal;
+        this.token = token;
     }
 
     public void setPrincipal(String principal) {
@@ -28,11 +47,17 @@ public class StatelessToken implements AuthenticationToken {
     }
 
     @Override
-    public Object getPrincipal() {  return principal;}
+    public Object getPrincipal() {
+        return principal;
+    }
+
     @Override
-    public Object getCredentials() {  return token;}
+    public Object getCredentials() {
+        return token;
+    }
+
     @Override
-    public String toString(){
-        return "StatelessToken:"+ JSONObject.toJSONString(this);
+    public String toString() {
+        return "StatelessToken:" + JSONObject.toJSONString(this);
     }
 }
