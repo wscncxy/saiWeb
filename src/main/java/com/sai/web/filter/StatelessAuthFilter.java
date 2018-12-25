@@ -1,7 +1,6 @@
 package com.sai.web.filter;
 
 import com.alibaba.fastjson.JSONObject;
-import com.sai.core.constants.AuthConstants;
 import com.sai.core.constants.StatusConstant;
 import com.sai.core.dto.ResultCode;
 import com.sai.web.pojo.StatelessToken;
