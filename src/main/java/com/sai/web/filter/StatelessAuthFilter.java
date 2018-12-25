@@ -1,6 +1,9 @@
 package com.sai.web.filter;
 
+import com.alibaba.fastjson.JSONObject;
 import com.sai.core.constants.AuthConstants;
+import com.sai.core.constants.StatusConstant;
+import com.sai.core.dto.ResultCode;
 import com.sai.web.pojo.StatelessToken;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.subject.Subject;
@@ -36,21 +39,18 @@ public class StatelessAuthFilter extends AccessControlFilter {
         InputStream is = null;
         try {
             HttpServletRequest httpRequest = (HttpServletRequest) request;
-            String token = httpRequest.getHeader("token");
-            if (StringUtils.isBlank(token)) {
-                token = httpRequest.getHeader(AuthConstants.AUTH_FRONT_TOKEN_KEY);
-            }
+            String token = httpRequest.getHeader("auth_token");
             StatelessToken statelessToken = new StatelessToken(token, token);
             ThreadContext.unbindSubject();
             Subject subject = getSubject(request, response);
             subject.login(statelessToken);
             ThreadContext.bind(subject);
         } catch (Exception e) {
-//            BaseResponse baseResponse = new BaseResponse();
-//            baseResponse.setCode(StatusContent.RESULT_FAIL_CODE_NOLOGIN);
-//            baseResponse.setMsg("登录失效,请重新登陆");
-//            response.setContentType("application/json; charset=utf-8");
-//            response.getWriter().write(JSONObject.toJSONString(baseResponse));
+            ResultCode resultCode = new ResultCode();
+            resultCode.setCode(StatusConstant.RESULT_AUTH_FAIL_CODE);
+            resultCode.setMsg("登录失效,请重新登陆");
+            response.setContentType("application/json; charset=utf-8");
+            response.getWriter().write(JSONObject.toJSONString(resultCode));
             return false;
         }
 

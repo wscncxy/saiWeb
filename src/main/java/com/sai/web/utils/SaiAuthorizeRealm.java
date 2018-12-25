@@ -1,7 +1,7 @@
 package com.sai.web.utils;
 
 import com.sai.web.pojo.StatelessToken;
-import com.sai.web.service.BefaultAuthorizeService;
+import com.sai.web.service.DefaultAuthorizeService;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
@@ -24,7 +24,7 @@ public class SaiAuthorizeRealm extends AuthorizingRealm {
     }
 
     @Autowired
-    private BefaultAuthorizeService authorizeService;
+    private DefaultAuthorizeService authorizeService;
 
     public boolean supports(AuthenticationToken token) {
         return token instanceof StatelessToken;

@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * Created by ZhouXiang on 2017/10/19 0019 10:49.
  */
-public interface BefaultAuthorizeService {
+public interface DefaultAuthorizeService {
 
     Long checkUserUrlAuth(String token, String reqUrl);
 

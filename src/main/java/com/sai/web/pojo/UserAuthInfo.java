@@ -1,10 +1,10 @@
 package com.sai.web.pojo;
 
 
-public class UserLoginInfo {
+public class UserAuthInfo {
     private String userName;
     private String rolename;
-    private String loginToken;
+    private String authToken;
 
     public String getUserName() {
         return userName;
@@ -22,11 +22,11 @@ public class UserLoginInfo {
         this.rolename = rolename;
     }
 
-    public String getLoginToken() {
-        return loginToken;
+    public String getAuthToken() {
+        return authToken;
     }
 
-    public void setLoginToken(String loginToken) {
-        this.loginToken = loginToken;
+    public void setAuthToken(String authToken) {
+        this.authToken = authToken;
     }
 }
