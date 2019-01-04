@@ -20,14 +20,15 @@ public class ConsulPropertySourceLoader implements PropertySourceLoader {
     }
 
     @Override
-    public PropertySource<?> load(String name, Resource resource, String profile) throws IOException {
+    public List<PropertySource<?>> load(String name, Resource resource) throws IOException {
         Properties properties = new Properties();
         properties.load(resource.getInputStream());
         Map<String, Object> source = this.process(properties);
+        List<PropertySource<?>> propertySources = new ArrayList();
         if (!source.isEmpty()) {
-            return new MapPropertySource(name, source);
+            propertySources.add(new MapPropertySource(name, source));
         }
-        return null;
+        return propertySources;
     }
 
     private Map<String, Object> process(Properties properties) {
@@ -50,7 +51,7 @@ public class ConsulPropertySourceLoader implements PropertySourceLoader {
                         continue;
                     }
                     String theKey = subKey.replaceFirst(keyPre, "").replaceAll("/", Constants.SYMBOL_POINT).replaceFirst(Constants.SYMBOL_POINT, "");
-                    ;
+                    theKey = theKey.toLowerCase();
                     JSONObject jsonObject = null;
                     try {
                         jsonObject = JSONUtil.toJSONObject(value);
