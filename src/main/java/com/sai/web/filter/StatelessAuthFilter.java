@@ -27,7 +27,7 @@ public class StatelessAuthFilter extends AccessControlFilter {
         HttpServletRequest httpRequest = (HttpServletRequest) request;
         String uri = httpRequest.getRequestURI();
         if (StringUtils.startsWith(uri, "/login") ||
-                StringUtils.startsWith(uri, "/auth")){
+                StringUtils.startsWith(uri, "/test")){
             return true;
         }
         return false;
