@@ -1,5 +1,6 @@
 package com.sai.web.filter;
 
+import com.sai.web.utils.IgnoreUrlUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.subject.Subject;
 import org.apache.shiro.util.CollectionUtils;
@@ -15,8 +16,7 @@ public class SaiRolesOrAuthorizationFilter extends RolesAuthorizationFilter {
     public boolean isAccessAllowed(ServletRequest request, ServletResponse response, Object mappedValue) throws IOException {
         HttpServletRequest httpRequest = (HttpServletRequest) request;
         String uri = httpRequest.getRequestURI();
-        if (StringUtils.startsWith(uri, "/login") ||
-                StringUtils.startsWith(uri, "/test")){
+        if (IgnoreUrlUtils.isUriIsIgnored(uri)){
             return true;
         }
         Subject subject = getSubject(request, response);
