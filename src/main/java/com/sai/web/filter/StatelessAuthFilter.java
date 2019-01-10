@@ -5,7 +5,6 @@ import com.sai.core.constants.StatusConstant;
 import com.sai.core.dto.ResultCode;
 import com.sai.web.pojo.StatelessToken;
 import com.sai.web.utils.IgnoreUrlUtils;
-import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.subject.Subject;
 import org.apache.shiro.util.ThreadContext;
 import org.apache.shiro.web.filter.AccessControlFilter;
@@ -15,9 +14,6 @@ import org.slf4j.LoggerFactory;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
-import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by ZhouXiang on 2017/10/23 0023 17:00.
@@ -37,7 +33,6 @@ public class StatelessAuthFilter extends AccessControlFilter {
 
     @Override
     protected boolean onAccessDenied(ServletRequest request, ServletResponse response) throws Exception {
-        InputStream is = null;
         try {
             HttpServletRequest httpRequest = (HttpServletRequest) request;
             String token = httpRequest.getHeader("auth_token");
