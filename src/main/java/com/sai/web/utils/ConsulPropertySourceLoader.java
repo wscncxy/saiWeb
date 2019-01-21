@@ -3,7 +3,6 @@ package com.sai.web.utils;
 import com.alibaba.fastjson.JSONObject;
 import com.sai.core.constants.Constants;
 import com.sai.core.utils.ConsulUtil;
-import com.sai.core.utils.JSONUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.boot.env.PropertySourceLoader;
 import org.springframework.core.env.MapPropertySource;
@@ -54,7 +53,7 @@ public class ConsulPropertySourceLoader implements PropertySourceLoader {
                     theKey = theKey.toLowerCase();
                     JSONObject jsonObject = null;
                     try {
-                        jsonObject = JSONUtil.toJSONObject(value);
+                        jsonObject = JSONObject.parseObject(value);
                     } catch (Exception e) {
                     }
                     if (jsonObject == null) {

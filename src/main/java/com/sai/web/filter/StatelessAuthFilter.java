@@ -1,6 +1,7 @@
 package com.sai.web.filter;
 
 import com.alibaba.fastjson.JSONObject;
+import com.sai.core.constants.AuthContants;
 import com.sai.core.constants.StatusConstant;
 import com.sai.core.dto.ResultCode;
 import com.sai.web.pojo.StatelessToken;
@@ -14,6 +15,7 @@ import org.slf4j.LoggerFactory;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
+import java.util.Enumeration;
 
 /**
  * Created by ZhouXiang on 2017/10/23 0023 17:00.
@@ -35,7 +37,8 @@ public class StatelessAuthFilter extends AccessControlFilter {
     protected boolean onAccessDenied(ServletRequest request, ServletResponse response) throws Exception {
         try {
             HttpServletRequest httpRequest = (HttpServletRequest) request;
-            String token = httpRequest.getHeader("auth_token");
+            String token = httpRequest.getHeader(AuthContants.AUTH_TOKEN_KEY);
+            Enumeration enumeration=httpRequest.getHeaderNames();
             StatelessToken statelessToken = new StatelessToken(token, token);
             ThreadContext.unbindSubject();
             Subject subject = getSubject(request, response);

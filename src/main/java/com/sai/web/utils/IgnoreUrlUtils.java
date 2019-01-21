@@ -24,4 +24,8 @@ public class IgnoreUrlUtils {
         }
         return false;
     }
+
+    public static void addIgnoreUrl(String url){
+        defaultIgnoreUriList.add(url);
+    }
 }

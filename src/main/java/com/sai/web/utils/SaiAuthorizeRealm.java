@@ -1,5 +1,6 @@
 package com.sai.web.utils;
 
+import com.sai.core.constants.NumberContants;
 import com.sai.core.utils.UserAuthUtil;
 import com.sai.web.pojo.StatelessToken;
 import com.sai.web.service.DefaultAuthorizeService;
@@ -13,6 +14,7 @@ import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,8 +38,8 @@ public class SaiAuthorizeRealm extends AuthorizingRealm {
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
         StatelessToken statelessToken = (StatelessToken) authenticationToken;
-        Long userId = authorizeService.checkUserAuthInfo(statelessToken.getToken());
-        if (userId == null || userId < 1) {
+        BigDecimal userId = authorizeService.checkUserAuthInfo(statelessToken.getToken());
+        if (userId == null || userId.compareTo(NumberContants.BIG_ONE) == -1) {
             return null;
         }
         return new SimpleAuthenticationInfo(statelessToken.getPrincipal(), statelessToken.getCredentials(), getName());
