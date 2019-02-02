@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.sai.core.constants.AuthContants;
 import com.sai.core.constants.StatusConstant;
 import com.sai.core.dto.ResultCode;
+import com.sai.core.utils.UserAuthUtil;
 import com.sai.web.pojo.StatelessToken;
 import com.sai.web.utils.IgnoreUrlUtils;
 import org.apache.shiro.subject.Subject;
@@ -25,6 +26,7 @@ public class StatelessAuthFilter extends AccessControlFilter {
 
     @Override
     protected boolean isAccessAllowed(ServletRequest request, ServletResponse response, Object mappedValue) throws Exception {
+        UserAuthUtil.remove();
         HttpServletRequest httpRequest = (HttpServletRequest) request;
         String uri = httpRequest.getRequestURI();
         if (IgnoreUrlUtils.isUriIsIgnored(uri)){
