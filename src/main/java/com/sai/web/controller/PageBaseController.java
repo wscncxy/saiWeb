@@ -2,6 +2,7 @@ package com.sai.web.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.Page;
+import com.github.pagehelper.PageInfo;
 import com.sai.core.dto.ResultCode;
 import com.sai.web.service.PageService;
 import com.sai.web.utils.PageUtil;
@@ -27,8 +28,9 @@ public class PageBaseController extends BaseController {
         if (pathVariables != null) {
             params.putAll(pathVariables);
         }
-        Page page = PageUtil.page(params, getPageService());
-        return getSuccessResult(page);
+        Page page = PageUtil.page(params);
+        PageInfo pageInfo = (PageInfo)getPageService().list(params);
+        return getSuccessResult(pageInfo);
     }
 
     @RequestMapping(value = "", method = RequestMethod.PUT)

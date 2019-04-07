@@ -11,7 +11,7 @@ import java.util.Map;
 
 public class PageUtil implements Serializable {
 
-    public static Page page(Map params, PageService pageService) {
+    public static Page page(Map params) {
         Integer pageSize = MapUtils.getInteger(params,"pageSize");
         Integer pageNum = MapUtils.getInteger(params,"pageNum");
         if (pageSize == null || pageSize < 1 || pageSize > 20) {
@@ -21,7 +21,6 @@ public class PageUtil implements Serializable {
             pageNum = 1;
         }
         Page page = PageHelper.startPage(pageNum,pageSize);
-        page = (Page)pageService.list(params);
         return page;
     }
 }
