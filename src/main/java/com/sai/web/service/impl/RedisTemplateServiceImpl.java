@@ -14,14 +14,12 @@ import java.util.concurrent.TimeUnit;
  * Created by ZhouXiang on 2017/8/9 0009 13:45.
  * modify from CMS tennyqin
  */
-@Service("redisTemplateService")
 public class RedisTemplateServiceImpl implements RedisTemplateService {
 
 
     /**
      * 日志记录
      */
-    @Autowired
     private RedisTemplate redisTemplate;
 
     public RedisTemplate<String, String> getRedisTemplate() {

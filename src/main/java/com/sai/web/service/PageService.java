@@ -1,17 +1,18 @@
 package com.sai.web.service;
 
-import com.github.pagehelper.PageInfo;
 import com.sai.core.dto.ResultCode;
+import com.sai.web.dto.EditBaseDTO;
+import com.sai.web.dto.ReqBaseDTO;
+import com.sai.web.dto.RespBaseDTO;
 
-import java.math.BigDecimal;
-import java.util.Map;
+import java.util.List;
 
-public interface PageService<T> {
-    PageInfo list(Map params);
+public interface PageService<REQ extends ReqBaseDTO, RESP extends RespBaseDTO, EDIT extends EditBaseDTO> {
+    List<RESP> query(REQ params);
 
-    ResultCode add(Map addInfo);
+    ResultCode add(EDIT addInfo);
 
-    ResultCode update(Map updateInfo);
+    ResultCode update(EDIT updateInfo);
 
-    ResultCode get(BigDecimal id);
+    ResultCode<RESP> get(Long id);
 }

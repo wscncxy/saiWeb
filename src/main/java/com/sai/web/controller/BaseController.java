@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 
 public class BaseController<T> {
 
+
     public ResultCode getSuccessResult() {
         return getResult(StatusConstant.RESULT_SUCCESS_CODE, StatusConstant.RESULT_SUCCESS_MSG, null);
     }
