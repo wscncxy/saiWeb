@@ -6,7 +6,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 @Data
-public class RespBaseDTO implements Serializable {
+public class BaseDTO implements Serializable {
 
     private Long id;
     private Long creatorId;
@@ -16,5 +16,5 @@ public class RespBaseDTO implements Serializable {
     /**
      * 乐观锁
      */
-    private Integer modifyVersion;
+    private String modifyVersion;
 }

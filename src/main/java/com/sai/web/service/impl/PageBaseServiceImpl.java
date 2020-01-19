@@ -4,9 +4,8 @@ import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.sai.core.dto.ResultCode;
 import com.sai.web.diamond.BaseDO;
-import com.sai.web.dto.EditBaseDTO;
+import com.sai.web.dto.BaseDTO;
 import com.sai.web.dto.ReqBaseDTO;
-import com.sai.web.dto.RespBaseDTO;
 import com.sai.web.mapper.BaseMapper;
 import com.sai.web.service.PageService;
 import org.apache.shiro.util.CollectionUtils;
@@ -14,26 +13,24 @@ import org.apache.shiro.util.CollectionUtils;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class PageBaseServiceImpl<REQ extends ReqBaseDTO, RESP extends RespBaseDTO, EDIT extends EditBaseDTO, DO extends BaseDO>
-        implements PageService<REQ, RESP, EDIT> {
+public abstract class PageBaseServiceImpl<REQ extends ReqBaseDTO, DTO extends BaseDTO, DO extends BaseDO>
+        implements PageService<REQ, DTO> {
 
-    protected BaseMapper<DO, REQ> mainMapper;
+    protected abstract BaseMapper<DO, REQ> getBaseMapper();
 
-    protected abstract void setBaseMapper(BaseMapper mainMapper);
+    protected abstract DO req2Do(REQ req);
 
-    protected abstract DO dto2Do(EDIT edit);
+    protected abstract DTO do2Dto(DO infoDo);
 
-    protected abstract RESP do2Dto(DO infoDo);
-
-    protected ResultCode editValid(EDIT info) {
+    protected ResultCode editValid(REQ info) {
         return ResultCode.success();
     }
 
     @Override
-    public List<RESP> query(REQ params) {
+    public List<DTO> query(REQ params) {
         PageHelper.startPage(params.getPageNum(), params.getPageSize());
-        List<DO> selectResult = mainMapper.select(params);
-        List<RESP> resultList = new ArrayList<>();
+        List<DO> selectResult = getBaseMapper().select(params);
+        List<DTO> resultList = new ArrayList<>();
         if (!CollectionUtils.isEmpty(selectResult)) {
             selectResult.stream().forEach(record -> {
                 resultList.add(do2Dto(record));
@@ -49,14 +46,14 @@ public abstract class PageBaseServiceImpl<REQ extends ReqBaseDTO, RESP extends R
     }
 
     @Override
-    public ResultCode add(EDIT addInfo) {
+    public ResultCode add(REQ addInfo) {
         ResultCode saveValidResult = editValid(addInfo);
         if (saveValidResult.isSuccess()) {
             return saveValidResult;
         }
-        DO record=dto2Do(addInfo);
-        int result = mainMapper.insert(dto2Do(addInfo));
-        if (result != 1) {
+        DO record=req2Do(addInfo);
+        int result = getBaseMapper().insert(record);
+        if (result == 1) {
             return afterEdit(record);
         }
         return ResultCode.fail();
@@ -67,22 +64,22 @@ public abstract class PageBaseServiceImpl<REQ extends ReqBaseDTO, RESP extends R
     }
 
     @Override
-    public ResultCode update(EDIT updateInfo) {
+    public ResultCode update(REQ updateInfo) {
         Long id = updateInfo.getId();
         if(id == null || id<1){
             return ResultCode.fail("ID 错误");
         }
-        DO record=dto2Do(updateInfo);
-        int result = mainMapper.updateById(record);
-        if (result != 1) {
+        DO record=req2Do(updateInfo);
+        int result = getBaseMapper().updateById(record);
+        if (result == 1) {
             return afterEdit(record);
         }
         return ResultCode.fail();
     }
 
     @Override
-    public ResultCode<RESP> get(Long id) {
-        DO result = mainMapper.selectById(id);
+    public ResultCode<DTO> get(Long id) {
+        DO result = getBaseMapper().selectById(id);
         return ResultCode.success(do2Dto(result));
     }
 

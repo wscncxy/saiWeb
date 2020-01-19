@@ -14,6 +14,6 @@ public class BaseDO {
     /**
      * 乐观锁
      */
-    private Integer modifyVersion = 0;
+    private String modifyVersion;
     private boolean isDelete = false;
 }
