@@ -1,5 +1,6 @@
 package com.sai.web.controller;
 
+import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
 import com.sai.core.dto.ResultCode;
 import com.sai.web.aop.MainService;
@@ -11,12 +12,13 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
+import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 
-public class PageBaseController<REQ extends ReqBaseDTO, DTO extends BaseDTO>
+public abstract class FrontPageBaseController<REQ extends ReqBaseDTO, DTO extends BaseDTO>
         extends BaseController implements InitializingBean {
 
-    private PageService<REQ, DTO> pageService;
+    protected FrontPageService<REQ, DTO> frontPageService;
 
     @Override
     public void afterPropertiesSet() throws Exception {
@@ -25,36 +27,24 @@ public class PageBaseController<REQ extends ReqBaseDTO, DTO extends BaseDTO>
             for(Field field : fields){
                 if(field.isAnnotationPresent(MainService.class)){
                     field.setAccessible(true);
-                    this.pageService = (PageService)field.get(this);
+                    this.frontPageService = (FrontPageService)field.get(this);
                     field.setAccessible(false);
                     break;
                 }
             }
         }
     }
-    @RequestMapping(value = "add", method = RequestMethod.POST)
-    public Object add(@RequestBody REQ addInfo) throws IOException {
-        ResultCode resultCode = pageService.add(addInfo);
-        return getResult(resultCode);
-    }
 
-    @RequestMapping(value = "page", method = RequestMethod.GET)
-    public Object page(@RequestParam REQ params) throws IOException {
-        PageInfo<DTO> pageInfo = (PageInfo) pageService.query(params);
+    @RequestMapping(value = "page", method = RequestMethod.POST)
+    public Object page(@RequestBody REQ params) throws IOException {
+        Page<DTO> pageInfo = (Page) frontPageService.query(params);
         return successResult(pageInfo);
     }
 
-    @RequestMapping(value = "update", method = RequestMethod.PUT)
-    public Object update(@RequestBody REQ UpdateInfoMap) throws IOException {
-        ResultCode resultCode = pageService.update(UpdateInfoMap);
-        return getResult(resultCode);
-    }
-
-
     @RequestMapping(value = "{id}", method = RequestMethod.GET)
     public Object get(@PathVariable("id") Long id) throws IOException {
-        ResultCode<DTO> resultCode = pageService.get(id);
-        return getResult(resultCode);
+        DTO resultCode = frontPageService.get(id);
+        return successResult(resultCode);
     }
 
 }

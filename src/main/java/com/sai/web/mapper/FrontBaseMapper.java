@@ -5,14 +5,8 @@ import com.sai.web.dto.ReqBaseDTO;
 
 import java.util.List;
 
-public interface BaseMapper<DO extends BaseDO, REQ extends ReqBaseDTO> {
-    int deleteById(Long id);
-
-    int insert(DO record);
-
+public interface FrontBaseMapper<DO extends BaseDO, REQ extends ReqBaseDTO> {
     DO selectByPrimaryKey(Long id);
-
-    int updateById(DO record);
 
     List<DO> selectList(REQ condition);
 }

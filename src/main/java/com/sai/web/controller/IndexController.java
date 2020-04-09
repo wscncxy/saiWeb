@@ -10,7 +10,7 @@ public class IndexController extends BaseController {
 
 
     public Object add() throws IOException {
-        return getSuccessResult();
+        return successResult();
     }
 
 }

@@ -12,31 +12,31 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 public class BaseController<T> {
 
 
-    public ResultCode getSuccessResult() {
+    public ResultCode successResult() {
         return getResult(StatusConstant.RESULT_SUCCESS_CODE, StatusConstant.RESULT_SUCCESS_MSG, null);
     }
 
-    public ResultCode getSuccessResult(T data) {
+    public ResultCode successResult(T data) {
         return getResult(StatusConstant.RESULT_SUCCESS_CODE, StatusConstant.RESULT_SUCCESS_MSG, data);
     }
 
-    public ResultCode getSuccessResult(String msg) {
+    public ResultCode successResultMsg(String msg) {
         return getResult(StatusConstant.RESULT_SUCCESS_CODE, msg, null);
     }
 
-    public ResultCode getSuccessResult(String msg, T data) {
+    public ResultCode successResult(String msg, T data) {
         return getResult(StatusConstant.RESULT_SUCCESS_CODE, msg, data);
     }
 
-    public ResultCode getFailResult() {
+    public ResultCode failResult() {
         return getResult(StatusConstant.RESULT_FAIL_CODE, StatusConstant.RESULT_FAIL_MSG, null);
     }
 
-    public ResultCode getFailResult(String msg) {
+    public ResultCode failResultMsg(String msg) {
         return getResult(StatusConstant.RESULT_FAIL_CODE, msg, null);
     }
 
-    public ResultCode getFailResult(String code, String msg) {
+    public ResultCode failResult(String code, String msg) {
         return getResult(code, msg, null);
     }
 
@@ -55,7 +55,7 @@ public class BaseController<T> {
     @ExceptionHandler(Exception.class)
     public Object exceptionHandler(Exception e){
         e.printStackTrace();
-        return getFailResult();
+        return failResult();
     }
 
 
