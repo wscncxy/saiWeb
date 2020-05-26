@@ -54,12 +54,9 @@ public abstract class FrontPageBaseServiceImpl<REQ extends ReqBaseDTO, DTO exten
                 resultList.add(do2Dto((DO)record));
             });
         }
-        if (selectResult instanceof Page) {
-            selectResult.clear();
-            selectResult.addAll(resultList);
-            return selectResult;
-        }
-        return resultList;
+        selectResult.clear();
+        selectResult.addAll(resultList);
+        return selectResult;
     }
 
     @Override

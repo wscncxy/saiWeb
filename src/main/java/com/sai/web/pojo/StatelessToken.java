@@ -1,6 +1,7 @@
 package com.sai.web.pojo;
 
-import com.alibaba.fastjson.JSONObject;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.sai.core.utils.JSONUtil;
 import org.apache.shiro.authc.AuthenticationToken;
 
 /**
@@ -57,6 +58,6 @@ public class StatelessToken implements AuthenticationToken {
 
     @Override
     public String toString() {
-        return "StatelessToken:" + JSONObject.toJSONString(this);
+        return "StatelessToken:" + JSONUtil.toJSONString(this);
     }
 }

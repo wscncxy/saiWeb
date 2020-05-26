@@ -1,6 +1,6 @@
 package com.sai.web.utils;
 
-import com.alibaba.fastjson.JSONObject;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sai.core.constants.Constants;
 import com.sai.core.utils.ConsulUtil;
 import org.apache.commons.lang3.StringUtils;
@@ -51,15 +51,15 @@ public class ConsulPropertySourceLoader implements PropertySourceLoader {
                     }
                     String theKey = subKey.replaceFirst(keyPre, "").replaceAll("/", Constants.SYMBOL_POINT).replaceFirst(Constants.SYMBOL_POINT, "");
                     theKey = theKey.toLowerCase();
-                    JSONObject jsonObject = null;
+                    Map<String,Object> map = null;
                     try {
-                        jsonObject = JSONObject.parseObject(value);
+                        map = new ObjectMapper().readValue(value,Map.class);
                     } catch (Exception e) {
                     }
-                    if (jsonObject == null) {
+                    if (map == null) {
                         result.put(theKey, value);
                     } else {
-                        Iterator<Map.Entry<String, Object>> iterator = jsonObject.entrySet().iterator();
+                        Iterator<Map.Entry<String, Object>> iterator = map.entrySet().iterator();
                         while (iterator.hasNext()) {
                             Map.Entry<String, Object> entry = iterator.next();
                             Object entryValue = entry.getValue();

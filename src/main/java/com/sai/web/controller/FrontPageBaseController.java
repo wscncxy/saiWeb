@@ -3,6 +3,7 @@ package com.sai.web.controller;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
 import com.sai.core.dto.ResultCode;
+import com.sai.core.utils.ValidateUtil;
 import com.sai.web.aop.MainService;
 import com.sai.web.dto.BaseDTO;
 import com.sai.web.dto.ReqBaseDTO;
@@ -37,6 +38,7 @@ public abstract class FrontPageBaseController<REQ extends ReqBaseDTO, DTO extend
 
     @RequestMapping(value = "page", method = RequestMethod.POST)
     public Object page(@RequestBody REQ params) throws IOException {
+        ValidateUtil.valid(params);
         Page<DTO> pageInfo = (Page) frontPageService.query(params);
         return successResult(pageInfo);
     }

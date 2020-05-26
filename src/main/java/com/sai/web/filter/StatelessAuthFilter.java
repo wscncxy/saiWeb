@@ -1,9 +1,9 @@
 package com.sai.web.filter;
 
-import com.alibaba.fastjson.JSONObject;
 import com.sai.core.constants.AuthContants;
 import com.sai.core.constants.StatusConstant;
 import com.sai.core.dto.ResultCode;
+import com.sai.core.utils.JSONUtil;
 import com.sai.core.utils.UserAuthUtil;
 import com.sai.web.pojo.StatelessToken;
 import com.sai.web.utils.IgnoreUrlUtils;
@@ -51,7 +51,7 @@ public class StatelessAuthFilter extends AccessControlFilter {
             resultCode.setCode(StatusConstant.RESULT_AUTH_FAIL_CODE);
             resultCode.setMsg("登录失效,请重新登陆");
             response.setContentType("application/json; charset=utf-8");
-            response.getWriter().write(JSONObject.toJSONString(resultCode));
+            response.getWriter().write(JSONUtil.toJSONString(resultCode));
             return false;
         }
 
