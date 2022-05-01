@@ -2,7 +2,6 @@ package com.sai.web.utils;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
-import com.sai.web.dto.ReqBaseDTO;
 import org.apache.commons.collections4.MapUtils;
 
 import java.io.Serializable;
@@ -23,22 +22,22 @@ public class PageUtil implements Serializable {
         return page;
     }
 
-    public static Boolean startPage(ReqBaseDTO params){
-        Integer pageNum = params.getPageNum();
-        if(pageNum == null){
-            pageNum = 1;
-        }
-        if(pageNum<1 || pageNum>100){
-            return false;
-        }
-        Integer pageSize = params.getPageSize();
-        if(pageSize == null){
-            pageSize = 10;
-        }
-        if(pageSize<1 || pageSize>50){
-            return false;
-        }
-        PageHelper.startPage(pageNum, pageSize);
-        return true;
-    }
+//    public static Boolean startPage(ReqBaseDTO params){
+//        Integer pageNum = params.getPageNum();
+//        if(pageNum == null){
+//            pageNum = 1;
+//        }
+//        if(pageNum<1 || pageNum>100){
+//            return false;
+//        }
+//        Integer pageSize = params.getPageSize();
+//        if(pageSize == null){
+//            pageSize = 10;
+//        }
+//        if(pageSize<1 || pageSize>50){
+//            return false;
+//        }
+//        PageHelper.startPage(pageNum, pageSize);
+//        return true;
+//    }
 }
