@@ -1,6 +1,5 @@
 package com.sai.web.pojo;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sai.core.utils.JSONUtil;
 import org.apache.shiro.authc.AuthenticationToken;
 

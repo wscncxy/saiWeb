@@ -12,6 +12,7 @@
  */
 package com.sai.web.dto;
 
+import com.sai.web.pojo.LoginToken;
 import lombok.Data;
 
 /**
@@ -42,6 +43,9 @@ public class BaseRequestDTO<T> {
      * 操作人
      */
     private String operation;
+
+
+    private LoginToken loginToken;
 
     private T data;
 }

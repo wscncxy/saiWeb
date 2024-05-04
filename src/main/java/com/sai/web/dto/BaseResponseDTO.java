@@ -12,6 +12,7 @@
  */
 package com.sai.web.dto;
 
+import com.sai.web.pojo.LoginToken;
 import lombok.Data;
 
 /**
@@ -31,7 +32,7 @@ public class BaseResponseDTO<T> {
 
     private Long responseTime;
 
-    private Integer code;
+    private String code;
 
     private String message;
 

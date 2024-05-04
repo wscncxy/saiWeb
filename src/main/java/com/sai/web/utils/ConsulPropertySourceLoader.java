@@ -31,47 +31,47 @@ public class ConsulPropertySourceLoader implements PropertySourceLoader {
     }
 
     private Map<String, Object> process(Properties properties) {
-        ConsulUtil consulUtil = ConsulUtil.getInstance();
-        consulUtil.init(properties);
-        String curProfile = properties.getProperty("spring.profiles.active");
-        String applicationName = properties.getProperty("spring.application.name");
-        String[] profileArray = new String[]{"all", curProfile};
-
+//        ConsulUtil consulUtil = ConsulUtil.getInstance();
+//        consulUtil.init(properties);
+//        String curProfile = properties.getProperty("spring.profiles.active");
+//        String applicationName = properties.getProperty("spring.application.name");
+//        String[] profileArray = new String[]{"all", curProfile};
+//
         final Map<String, Object> result = new LinkedHashMap<String, Object>();
-        result.put("spring.application.name", applicationName);
-        result.put("spring.profiles.active", curProfile);
-        for (String profile : profileArray) {
-            String keyPre = "envConfig/" + applicationName + "/" + profile;
-            List<String> subKeyList = consulUtil.getSubKeys(keyPre);
-            if (subKeyList != null && subKeyList.size() > 0) {
-                for (String subKey : subKeyList) {
-                    String value = consulUtil.getValue(subKey);
-                    if (StringUtils.isBlank(value)) {
-                        continue;
-                    }
-                    String theKey = subKey.replaceFirst(keyPre, "").replaceAll("/", Constants.SYMBOL_POINT).replaceFirst(Constants.SYMBOL_POINT, "");
-                    theKey = theKey.toLowerCase();
-                    Map<String,Object> map = null;
-                    try {
-                        map = new ObjectMapper().readValue(value,Map.class);
-                    } catch (Exception e) {
-                    }
-                    if (map == null) {
-                        result.put(theKey, value);
-                    } else {
-                        Iterator<Map.Entry<String, Object>> iterator = map.entrySet().iterator();
-                        while (iterator.hasNext()) {
-                            Map.Entry<String, Object> entry = iterator.next();
-                            Object entryValue = entry.getValue();
-                            if (entryValue != null) {
-                                String entryKey = entry.getKey();
-                                result.put(theKey + Constants.SYMBOL_POINT + entryKey, entryValue);
-                            }
-                        }
-                    }
-                }
-            }
-        }
+//        result.put("spring.application.name", applicationName);
+//        result.put("spring.profiles.active", curProfile);
+//        for (String profile : profileArray) {
+//            String keyPre = "envConfig/" + applicationName + "/" + profile;
+//            List<String> subKeyList = consulUtil.getSubKeys(keyPre);
+//            if (subKeyList != null && subKeyList.size() > 0) {
+//                for (String subKey : subKeyList) {
+//                    String value = consulUtil.getValue(subKey);
+//                    if (StringUtils.isBlank(value)) {
+//                        continue;
+//                    }
+//                    String theKey = subKey.replaceFirst(keyPre, "").replaceAll("/", Constants.SYMBOL_POINT).replaceFirst(Constants.SYMBOL_POINT, "");
+//                    theKey = theKey.toLowerCase();
+//                    Map<String,Object> map = null;
+//                    try {
+//                        map = new ObjectMapper().readValue(value,Map.class);
+//                    } catch (Exception e) {
+//                    }
+//                    if (map == null) {
+//                        result.put(theKey, value);
+//                    } else {
+//                        Iterator<Map.Entry<String, Object>> iterator = map.entrySet().iterator();
+//                        while (iterator.hasNext()) {
+//                            Map.Entry<String, Object> entry = iterator.next();
+//                            Object entryValue = entry.getValue();
+//                            if (entryValue != null) {
+//                                String entryKey = entry.getKey();
+//                                result.put(theKey + Constants.SYMBOL_POINT + entryKey, entryValue);
+//                            }
+//                        }
+//                    }
+//                }
+//            }
+//        }
         return result;
     }
 }
