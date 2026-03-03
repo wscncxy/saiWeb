@@ -21,7 +21,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <sai.version>0.0.2</sai.version>
-        <shiro.version>2.0.0</shiro.version>
+        <shiro.version>2.1.0</shiro.version>
         <druid.boot.version>1.2.22</druid.boot.version>
     </properties>
 
